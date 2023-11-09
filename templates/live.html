@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block app_content %}
+    <div class="container">
+        <!-- Ваш контент страницы live.html здесь -->
+        <p></p>
+
+        <!-- Ссылка на главную страницу с классом "btn btn-warning home" -->
+        <a href="/" class="btn btn-warning home">На главную</a>
+
+        <!-- Ссылка на текущую страницу с классом "btn btn-info refresh" -->
+        <a href="/live" class="btn btn-info refresh">Обновить</a>
+
+        <table class="world">
+            {% for row in current_game.world %}
+                <tr>
+                    {% for cell in row %}
+                        {% if cell == 1 %}
+                            <td class="cell living-cell"></td>
+                            {% elif current_game.old_world is defined %}
+                            <td class="cell dead-cell"></td>
+                        {% else %}
+                            <td class="cell"></td>
+                        {% endif %}
+                    {% endfor %}
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+{% endblock %}
+
+{% block scripts %}
+    {{ super() }}
+
+    <!--<script src="{{ url_for("static", filename="your_script.js") }}"></script>-->
+
+    <script>
+
+    setInterval(() => window.location.reload(), 500);
+    </script>
+
+    <p>Счетчик: {{ current_game.counter }}</p>
+</div>
+
+{% endblock  %}
